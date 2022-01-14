@@ -3,19 +3,20 @@ include 'dbconnect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $showAlert = false;
-
-  include 'dbconnect.php';
   $Reservation_no = $_POST["Reservation_no"];
-  $sql = "INSERT INTO `book` (`Reservation_no`)VALUES ('$Reservation_no');";
+  $sql = "DELETE FROM `CUSTOMER` WHERE `Reservation_no`='$Reservation_no';";
+  $sql2 = "DELETE FROM `BOOK` WHERE `Reservation_no`='$Reservation_no';";
+  $result = mysqli_query($conn,$sql);
+  $result2 = mysqli_query($conn,$sql2);
 
-  if ($result) {
+  if ($result && $result2) {
     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Success!!!!!!!</strong> Submitted
+                            <strong>Success!!!!!!!</strong> Your Reservation is Successfully Cancelled
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>';
   } else {
     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Warning!!!!!!!</strong> Invalid 
+                            <strong>Warning!!!!!!!</strong> Cancelation failed
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>';
   }
@@ -83,37 +84,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </nav>
   </header>
+
   <main>
     <form action="/tara_hotel/cancel.php" method="POST">
+      <div class="container row text-center display-6 mb-5 h5 justify-content-center">
+        <p class="">Are you sure</p>
+        <p> you want to cancel this Booking ?</p>
+      </div>
 
-      <!-- <br>
-    <h2>
-      <center>
-        <p>Are you sure</p>
-        <p> you wanna to cancel this Booking ?</p>
-      </center>
-    </h2>
-    <br>
-    <center> -->
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <div class="row register-form">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="text" class="form-control" name="Reservation_no" placeholder="Reservation_no *" value="" />
-              </div>
-            </div>
+      <div class="row  justify-content-center register-form">
+        <div class="col-md-3">
+          <div class="form-group">
+            <input type="text" class="form-control" name="Reservation_no" placeholder="Reservation_no *" value="" />
           </div>
         </div>
-        <br>
-        <div class="row mb-4">
-          <div class="col text-center">
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
+      </div>
+      </div>
+      <br>
+      <div class="row mb-4">
+        <div class="col text-center">
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        </center>
+      </div>
     </form>
   </main>
 </body>
