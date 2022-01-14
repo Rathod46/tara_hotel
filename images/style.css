@@ -1,0 +1,247 @@
+h1 {
+    color: black;
+}
+
+body {
+    background-color: rgb(58, 55, 55);
+}
+
+.navbar {
+    margin: 12px 60px;
+    display: inline-block;
+    width: 80%;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    margin: 12px 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: blue;
+    font-size: 28px;
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+header::before {
+    background: url("https://source.unsplash.com/1600x900/?learning,books");
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: brown;
+    font-size: 30px;
+    padding-top: 30px;
+}
+
+.mastery {
+    font-weight: bolder;
+}
+
+body {
+    background-image: url("https://media.istockphoto.com/photos/wooden-bed-frame-and-decoration-japanese-style-in-zen-bedroom-minimal-picture-id1176103460?k=20&m=1176103460&s=612x612&w=0&h=lMNwiXDMKRWhpCoMwKRgqiPfALOeYk2ulzbEPJMilFI=");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif cursive;
+    padding: 0;
+    margin: 0;
+}
+
+.main-header h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif margin;
+    padding: 14px;
+    cursor: pointer;
+}
+
+.main-header {
+    background-image: url("https://images.unsplash.com/photo-1541971875076-8f970d573be6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.main-header h2 {
+    text-align: center;
+    position: relative;
+    top: 30%;
+    color: black;
+    cursor: pointer;
+}
+
+.main-header h2 span {
+    background-color: rgb(226, 14, 14);
+    padding: 10PX;
+    Color: black;
+}
+
+.header {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navigation ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.navigation li {
+    list-style: none;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.navigation li a {
+    text-decoration: black;
+    color: black;
+}
+
+.navigation li:hover {
+    background-color: gray;
+    padding: 10px;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: O;
+    overflow: hidden;
+}
+
+lI {
+    float: left;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul {
+    list-style: none;
+}
+
+.footer {
+    background-color: whitesmoke;
+    padding: 70px 0;
+}
+
+.footer-col {
+    width: 25px;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    font-weight: 500;
+    position: relative;
+    background-color: crimson;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: grey;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.footer-col ul li:not(:las) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+footer {
+    background-color: black;
+    color: black;
+}
+
+footer {
+    background-color: black;
+    color: black;
+}
+
+footer {
+    background-color: black;
+    color: black;
+}
+
+footer a {
+    text-decoration: black;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.ft-title {
+    color: plum;
+    font-family: "Merriweather", serif;
+}

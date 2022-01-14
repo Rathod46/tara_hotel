@@ -1,0 +1,6 @@
+main {
+    background-image: url("/images/Display.jpg");
+    background-size: cover;
+    background-position: fixed center;
+    margin: 0;
+}
