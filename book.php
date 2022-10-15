@@ -1,50 +1,6 @@
 <?php
 include 'dbconnect.php';
-// error_reporting(0);
-$popup = false;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $showAlert = false;
-
-    include 'dbconnect.php';
-    $Fname = $_POST["Fname"];
-    $Lname = $_POST["Lname"];
-    $phoneno = $_POST["phoneno"];
-    $Roomtype = $_POST["RoomType"];
-    $Number_of_Rooms = $_POST["NumberofRooms"];
-    $Checkin = $_POST["CheckinDATE"];
-    $Checkout = $_POST["CheckOutDATE"];
-
-    $sql = "INSERT INTO `customer` ( `FNAME`, `LNAME`, `PHONENO`) VALUES ( '$Fname', '$Lname', '$phoneno');";
-    $sql1 = "SELECT `RESERVATION_NO` FROM `CUSTOMER` WHERE `FNAME` = '$Fname' AND `LNAME` = '$Lname';";
-    $sql2 = "SELECT `PRICE` FROM AVAIL WHERE `ROOMTYPE` = '$Roomtype';";
-    $result = mysqli_query($conn, $sql);
-    $result1 = mysqli_query($conn, $sql1);
-    $result2 = mysqli_query($conn, $sql2);
-    $row1 = mysqli_fetch_assoc($result1);
-    $row2 = mysqli_fetch_assoc($result2);
-    $reservation_no = $row1['RESERVATION_NO'];
-    $payment = $row2['PRICE'];
-    $sql3 = "UPDATE `CUSTOMER` SET `PAYMENT` = '$payment' WHERE `RESERVATION_NO` = '$reservation_no';";
-    $sql4 = "INSERT INTO `book` (`SNO`, `ROOMTYPE`,`RESERVATION_NO`, `NUMBER_OF_ROOMS`, `CHECKIN`, `CHECKOUT`) VALUES (NULL, '$Roomtype','$reservation_no', '$Number_of_Rooms','$Checkin','$Checkout');";
-    $result3 = mysqli_query($conn, $sql3);
-    $result4 = mysqli_query($conn, $sql4);
-    if ($result && $result2 && $result1 && $result3 && $result3) {
-        $popup = true;
-        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Success!!!!!!!</strong> Submitted Check Your Payment details below
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>';
-    } else {
-        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Warning!!!!!!!</strong> Invalid 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>';
-    }
-}
-
-
-
+error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -66,39 +22,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-primary bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Home</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="about.php">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="book.php">Booking</a>
-                        </li>
-                        <li class="nav-item dropdown">
 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="cancel.php">Cancel</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="staff.php">Our staff</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
 
     <main>
         <div class="container register">
 
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3 register-left">
                     <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
@@ -112,37 +57,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="col-md-9 register-right">
 
+
                     <div class="container">
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-info bg-opacity-25 bg-gradient ">
-                                        <h5 class="modal-title " id="exampleModalLabel">Reservation Details</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        
-                                        <?php
-                                        if ($popup) {
-                                            echo '<div class="container h5 mb-3">
-                                            Payment : '.$payment.'
-                                        </div>
-                                        <div class="container h5">
-                                            Reservation No : '.$reservation_no.'
-                                        </div>
-                                        <div class="text-center mt-2">
-                                           please note your reservation no for future reference
-                                        </div>';
-                                        }
-                                        ?>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <form action="/tara_hotel/book.php" method="POST">
+                            <?php
+                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                $showAlert = false;
+
+                                include 'dbconnect.php';
+                                $Fname = $_POST["Fname"];
+                                $Lname = $_POST["Lname"];
+                                $Address1 = $_POST["Address1"];
+                                $Address2 = $_POST["Address2"];
+                                $City = $_POST["City"];
+                                $State = $_POST["State"];
+                                $Roomno = $_POST["Roomno"];
+                                $Pincode = $_POST["Pincode"];
+                                $RoomPreference = $_POST["RoomPreference*"];
+                                $gender = $_POST["gender"];
+                                $email = $_POST["email"];
+                                $password = $_POST["password"];
+                                $cpassword = $_POST["cpassword"];
+                                $phoneno = $_POST["phoneno"];
+                                $Question = $_POST["Question"];
+                                $answer = $_POST["answer"];
+                                $Arrivaldate = $_POST["Arrivaldate"];
+                                $checkintime = $_POST["checkintime"];
+                                $checkouttime = $_POST["checkouttime"];
+                                $Departuretime = $_POST["Departuretime"];
+                                $Adults = $_POST["Adults"];
+                                $Children = $_POST["Children"];
+
+                                $sql = "INSERT INTO `reservation_details` (`First_name`, `Last_name`, `Address_1`, `Address_2`, `City`, `State`, `Room_no`, `Pin_code`, `Room_preference`, `gender`, `Email_ID`, `Password`, `conferm_Password`, `Phone_no`, `Question`, `Answer`, `Arrival_date`, `Check_in_time`, `Check_out_time`, `Departure_date`, `Adults`, `Children`) VALUES ('$Fname', '$Lname', '$Address1', '$Address2', '$City', '$State', '$Roomno', '$Pincode', '$RoomPreference', '$gender', '$email', '$password', '$cpassword', '$phoneno', '$Question', '$answer', '$Arrivaldate', '$checkintime', '$checkouttime', '$Departuretime', '$Adults', '$Children');";
+                                $result = mysqli_query($conn, $sql);
+                                if ($result) {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Success!!!!!!!</strong> Submitted
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>';
+                                } else {
+                                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>Warning!!!!!!!</strong> Invalid 
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>';
+                                }
+                            }
+
+
+
+                            ?>
 
                             <h2 class="register-heading">Hotel Tara</h2>
                             <br>
@@ -152,81 +116,107 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="row register-form">
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
-                                        <input type="text" name="Fname" id="Fname" class="form-control" placeholder="First Name *" required>
+                                        <input type="text" name="Fname" id="Fname" class="form-control" placeholder="First Name *">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <input type="text" name="Lname" id="Lname" class="form-control" placeholder="Last Name *" required>
+                                        <input type="text" name="Lname" id="Lname" class="form-control" placeholder="Last Name *">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <input type="tel" id="phoneno" name="phoneno" minlength="10" maxlength="10" class="form-control" placeholder="Your Phone *" required />
+                                        <input type="text" id="phoneno" name="phoneno" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" />
                                     </div>
                                     <div class="input-group mb-3">
-                                        <select class="form-select" id="RoomType" name="RoomType" class="form-control" placeholder="RoomType *" required>
-                                            <option selected>Room_Type</option>
-                                            <option value="DOUBLE_DELUXE_ROOM">DOUBLE_DELUXE_ROOM</option>
-                                            <option value="SINGLE_DELUXE_ROOM">SINGLE_DELUXE_ROOM</option>
-                                            <option value="HONEYMOON_SUITE">HONEYMOON_SUITE</option>
-                                            <option value="ECONOMY_DOUBLE">ECONOMY_DOUBLE</option>
-                                            <option value="SINGLE_ROOM">SINGLE_ROOM</option>
-                                            <option value="TRIPLE">TRIPLE</option>
-                                            <option value="KINGSIZE_ROOM">KINGSIZE_ROOM</option>
-                                            <option value="QUEENSIZE_ROOM">QUEENSIZE_ROOM</option>
-                                            <option value="TWIN_ROOM">TWIN_ROOM</option>
-                                            <option value="QUAD_ROOM">QUAD_ROOM</option>
-                                            <option value="HOLLYWOOD_ROOM">HOLLYWOOD_ROOM</option>
-                                            <option value="ECONOMY_DOUBLE">ECONOMY_DOUBLE</option>
-                                            <option value="SINGLE">SINGLE</option>
-                                            <option value="KING_ROOM">KING_ROOM</option>
-                                            <option value="QUEEN_ROOM">QUEEN_ROOM</option>
-                                            <option value="SINGLE_ROOM">SINGLE_ROOM</option>
-                                            <option value="DOUBLE_ROOM">DOUBLE_ROOM</option>
-                                            <option value="SUITE_ROOM">SUITE_ROOM</option>
-                                            <option value="KIDS_ROOM">KIDS_ROOM</option>
-                                            <option value="HONEYMOON_SUITE_ROOM">HONEYMOON_SUITE_ROOM</option>
-                                        </select>
+                                        <input type="Roomtype" id="RoomType" name="RoomType" class="form-control" placeholder="RoomType *" />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="Number of Rooms" id="Number of Rooms" name="Number of Rooms" class="form-control" placeholder="Number of Rooms *" />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="Reservation_no" id="Reservation_no" name="Reservation_no" class="form-control" placeholder="Reservation_no *" />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="Check-in DATE " id="Check-in DATE " name="Check-in DATE " class="form-control" placeholder="Check-in DATE  *" />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="Check-Out date" id="Check-Out date" name="Check-Out date" class="form-control" placeholder="Check-Out date *" />
+                                    </div>
+                                    <div>
+                                    <a class="btn btn-primary" href="index.php" role="button">Submit</a>
+                                        <a class="btn btn-warning btnwarning" href="index.php" role="button">Home</a>
                                     </div>
 
-                                    <div class="input-group mb-3">
-                                        <input type="text" id="NumberofRooms" name="NumberofRooms" class="form-control" placeholder="Number of Rooms *" required />
-                                    </div>
-                                    <!-- <div class="input-group mb-3">
-                                        <input type="number" id="Reservation_no" name="Reservation_no" class="form-control" placeholder="Reservation_no *"  />
 
-                                </div> -->
-                                    <div class="input-group datepicker mb-3">
-                                        <input type="text" id="CheckinDATE " name="CheckinDATE" class="form-control" placeholder="Check-in date *" onfocus="(this.type = 'date')" onblur="this.type='text'" required />
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <input type="text" id="CheckOutdate" name="CheckOutDATE" class="form-control" placeholder="Check-Out date *" onfocus="(this.type = 'date')" onblur="this.type='text'" required />
-                                    </div>
-                                </div>
-                                <div>
-                                    <input type="submit" id="submit" class="btn btn-primary"></input>
-                                    <?php
-                                    if ($popup) {
-                                        echo '<button type="submit" id="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">view your registration no</button>
+                                    
 
-                                        ';
-                                    }
-                                    ?>
 
                                 </div>
                             </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+
+
 
     </main>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!-- <script>
-        $('#myForm').on('submit', function(e) {
-            $('#myModal').modal('show');
-            e.preventDefault();
-        });
-    </script> -->
+
 </body>
 
 </html>
+
+
+<?php
+
+// $fn = $_GET['Firstname'];
+// $ln = $_GET['Lastname'];
+// $An = $_GET['Address1'];
+// $An = $_GET['Address2'];
+// $cn = $_GET['city'];
+// $sn = $_GET['state'];
+// $Rn = $_GET['Roomno'];
+// $Pn = $_GET['Pincode'];
+// $Rn = $_GET['Roomreferences'];
+// $Gn = $_GET['Gender'];
+// $En = $_GET['Email'];
+// $pwd = $_GET['Password'];
+// $Cn = $_GET['Confirmpassword'];
+// $pn = $_GET['phone'];
+// $fn = $_GET['Question'];
+// $Qn = $_GET['Answer'];
+// $An = $_GET['Arrivaldate'];
+// $cn = $_GET['checkin'];
+// $cn = $_GET['checkout'];
+// $dn = $_GET['departuredate'];
+// $An = $_GET['Adults'];
+// $cn = $_GET['children'];
+
+// echo "$fn";
+// echo "$ln";
+// echo "$An";
+// echo "$An";
+// echo "$cn";
+// echo "$sn";
+// echo "$Rn";
+// echo "$Pn";
+// echo "$Rn";
+// echo "$Gn";
+// echo "$En";
+// echo "$pwd";
+// echo "$Cn";
+// echo "$Qn";
+// echo "$An";
+// echo "$cn";
+// echo "$cn";
+// echo "$dn";
+// echo "$An";
+// echo "$cn";
+
+
+// $query = "INSERT INTO RESERVATION_DATAILS VALUES ('$fn','$ln','$An','$An','$cn',$sn','$Rn','$Pn','$Rn','$Gn','$En','$pwd','$Cn','$Qn','$An','$cn','$cn','$dn','$An','$cn')";
+
+// $data = mysqli_query($conn, $query);
+
+// if ($data) {
+//     echo "Data inserted into Database";
+// } else " Failed to insert Data inserted into Database";
+?>

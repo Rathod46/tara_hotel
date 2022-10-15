@@ -98,7 +98,7 @@ include 'dbconnect.php';
     <div class="container">
         <div class="col-md-12">
             <div class="media-container-row">
-                <div class="mbr-figure" style="width: 100%;">
+                <div class="mbr-figure" style="width: 50%;">
                     <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" width="1000" height="500">
                 </div>
 
